@@ -1,0 +1,118 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>church 2.0</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
+    {% block extraheader %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        //要修正
+        function goBack(event) {
+            event.preventDefault();
+    
+            let currentUrl = window.location.href;
+
+            if (currentUrl.endsWith('/')) {
+                currentUrl = currentUrl.slice(0,-1)
+            }
+    
+            if (window.location.search){
+    
+                const queryString = window.location.search; //クエリ文字列（例: ?key1=value1&key2=value2）を取得
+                const params = new URLSearchParams(queryString); //各パラメータごとにバラす
+            
+                if (params.get('id')) {
+            
+                    const upperLevelUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+                    window.location.href = upperLevelUrl;
+    
+                } else if (params.get('name')) {
+                
+                    if (params.get('chapter')) {
+    
+                        const upperLevelUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+                        window.location.href = upperLevelUrl + '?name=' + params.get('name');
+    
+                    } else {
+    
+                        const upperLevelUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+                        window.location.href = upperLevelUrl;
+    
+                    }
+    
+                } else {
+
+                }
+
+            } else {
+
+                const currentPath = window.location.pathname;
+                if (currentPath === '/menu' || currentPath === '/menu/') {
+                    return
+                } else if (currentPath === '/mypage/') {
+                    const upperLevelUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/')) ;
+                    window.location.href = upperLevelUrl+ "/menu/";
+                    return;
+                } 
+
+    
+                const upperLevelUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+
+                if (upperLevelUrl.endsWith('accounts') || upperLevelUrl.endsWith('store') || upperLevelUrl.endsWith('mypage')){
+
+                    let next_upperLevelUrl = upperLevelUrl.substring(0, upperLevelUrl.lastIndexOf('/'));
+
+                    window.location.href = next_upperLevelUrl +"/menu/";
+                    
+                } else if (upperLevelUrl.endsWith('userpage')){
+
+                    history.back()
+
+                } else {
+
+                window.location.href = upperLevelUrl;
+                
+                }
+    
+            }
+    
+        }
+        
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between">
+        <ul class="navbar-nav mr-md-2">
+            {% csrf_token %}
+            <li class="nav-item"><a href="#" onclick="goBack(event)" class="nav-link">back</a></li>
+        </ul>
+        <a href="/menu/" class="navbar-brand">church 2.0</a>
+        <ul class="navbar-nav mr-md-2">
+            {% if user.is_authenticated %}
+            <form action='{% url "logout" %}' method='post' name='logout'>
+                {% csrf_token %}
+                <li class="nav-item"><a class="nav-link" href="javascript:logout.submit()">Logout</a></li>
+            </form>
+            <li class="nav-item"><a class="nav-link" href="{% url 'mypage:mypage' %}">my page</a></li>
+            
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign up</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<main>
+    <div class="container">
+        {% block main %}{% endblock %}
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <body>
+       
+        <h1>{{name}} {{chapter.chapter_number}}-{{verse.verse_number}}
+        <h3>{{verse.text}}</h3>
+        {% if can_post == 1 %}
+        {% csrf_token %}
+        <form action="?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}" method="post">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="post" class="btn btn-primary btn-dark">
+        {% else %}
+        <p class="text-dark">Posting frequency exceeds the limit.</p>
+        {% endif %}
+        
+        {% if verse.image %}
+        <h2>Keyword Visualization</h2>
+            <img src="/media/img/wordcloud/{{ name }}_{{ chapter.chapter_number }}_{{ verse.verse_number }}.png" class="img-fluid">
+
+        {% else %}
+
+        {% endif %}
+        
+        <table class="table table-striped table-hover">
+            <tr>
+                <th scope="col">Post id</th>
+                <th scope="col">Name</th>
+                <th scope="col">User id</th>
+                <th scope="col">Date</th>
+                <th scope="col">Content</th>
+            </tr>
+                {% for p in post %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    {% if p.owner is not None %}
+                    <td>
+                        <a class="page-link text-dark" href="{% url 'userpage:userpage' p.owner.username %}">
+                            {{ p.owner.username }}
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>{{ p.guest_name }}</td>
+                    {% endif %}
+                    {% if p.owner is not None %}
+                    <td>{{user.id}}</td>
+                    {% else %}
+                    <td>guest</td>
+                    {% endif %}
+                    <td>{{p.created_at}}</td>
+                    <td>{{p.text}}</td>
+                </tr>
+                {% endfor %}
+        </table>
+    </body>
+{% endblock %}

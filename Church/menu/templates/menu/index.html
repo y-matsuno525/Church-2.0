@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main %}
+<body>
+    <div class="container">
+        <h2>menu</h2>
+        <p><a class="page-link text-dark" href="list">・General forum</a></p>
+        <p><a class="page-link text-dark" href="dogmatics">・Dogmatics forum</a></p>
+        <p><a class="page-link text-dark" href="{% url 'store:product_list' %}">・Store (Under Construction)</a></p>
+        <br><h2>Keyword Visualization (the entire bulletin board)</h2>
+        <p><br><img src="/media/wordcloud/all.png" class="img-fluid"></p>
+        <br><h2>summary</h2>
+        <p>・{{sum}}</p>
+        <br>If you encounter any bugs, security issues, or have any feature requests, please feel free to contact us at the email address below. 
+        <br>As I am new to web app development, I also welcome any advice or suggestions.
+
+        <br>church2.ja@gmail.com
+    </div>
+</body>
+{% endblock %}

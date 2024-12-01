@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <body>
+       
+        {% for book in books %}
+        <a class="page-link text-dark" href="{% url 'book' %}?name={{ book.name }}"><p>{{book.name}}</p></a>
+        {% endfor %}
+    </body>
+{% endblock %}
