@@ -2,10 +2,28 @@
 {% load markdown_extras %}
 
 {% block main %}
-    <body>
-        <p class="text-dark"><h2>{{formal_paper.preprint.title}}</h2></p>
-        <p class="text-dark"><h4>formalized at {{formal_paper.formalized_at}}</h2></p>
-        {{ formal_paper.preprint.content|markdown|safe }}
-        
+    <body class="bg-light">
+        <div class="container mt-5">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="text-center text-primary text-dark">{{ formal_paper.preprint.title }}</h2>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3 text-muted">
+                        <small>Created at: {{ formal_paper.preprint.created_at }}</small>
+                        <small>Updated at: {{ formal_paper.preprint.updated_at }}</small>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div>
+                            <a href="{% url 'userpage:userpage' formal_paper.preprint.author.username %}"><p class="mb-0"><strong class="text-dark">Author : {{ formal_paper.preprint.author.username }}</strong></p></a>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="markdown-content">
+                            {{ formal_paper.preprint.content|markdown|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 {% endblock %}

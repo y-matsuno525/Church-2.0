@@ -1,20 +1,40 @@
+
+
 {% extends "base.html" %}
 {% load markdown_extras %}
 
 {% block main %}
-    <body>
-        <p class="text-dark"><h2>{{preprint.title}}</h2></p>
-        <p class="text-dark"><h4>created at {{preprint.created_at}}</h2></p>
-        <p class="text-dark"><h4>updated at {{preprint.updated_at}}</h2></p>
-        <p class="text-dark"><h4>The number of stars is {{num_stars}}</h2></p>
-        <form action="" method="post">
-            {% csrf_token %}
-            <button type="submit" class="star-button">
-                ★ Star
-                <span class="star-count">{{ num_stars }}</span>
-            </button>
-        </form>
-        {{ preprint.content|markdown|safe }}
-        
+    <body class="bg-light">
+        <div class="container mt-5">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="text-center text-primary text-dark">{{ preprint.title }}</h2>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3 text-muted">
+                        <small>Created at: {{ preprint.created_at }}</small>
+                        <small>Updated at: {{ preprint.updated_at }}</small>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div>
+                            <a href="{% url 'userpage:userpage' preprint.author.username %}"><p class="mb-0"><strong class="text-dark">Author : {{ preprint.author.username }}</strong></p></a>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <form action="" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-warning d-flex align-items-center">
+                                ★ Star
+                                <span class="ms-2 badge bg-warning text-dark">{{ num_stars }}</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="mt-4">
+                        <div class="markdown-content">
+                            {{ preprint.content|markdown|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 {% endblock %}

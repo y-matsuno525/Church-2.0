@@ -2,18 +2,70 @@
 {% load markdown_extras %}
 
 {% block main %}
-    <body>
+<div class="container mt-4">
+    <!-- ユーザー情報 -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">User page</h2>
+        <p class="text-muted">user name: <span class="fw-bold">{{ user.username }}</span></p>
+    </div>
 
-        <p>{{ user.username }}</p>
-        {% for post in posts %}
-        {{ post.verse.chapter.book.name }} {{ post.verse.chapter.chapter_number }} : {{ post.verse.verse_number }}<br>
-        {{ post.text }}<br>
-        {% endfor %}
-        {% for preprint in preprints %}
-        {{ preprint.title }}<br>
-        {{ preprint.content|markdown|safe }}<br>
-        {% endfor %}
+    <!-- 投稿セクション -->
+    {% if posts %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Post list</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for post in posts %}
+            <li class="list-group-item">
+                <p class="mb-1 text-muted">
+                    {{ post.verse.chapter.book.name }} {{ post.verse.chapter.chapter_number }}:{{ post.verse.verse_number }}
+                </p>
+                <p class="mb-0">{{ post.text }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="text-muted">There are no posts.</p>
+    {% endif %}
 
-        
-    </body>
+    <!-- Preprintセクション -->
+    {% if preprints %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Preprint list</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for preprint in preprints %}
+            <li class="list-group-item">
+                <a href="{% url 'dogmatics:reading' %}?id={{ preprint.id }}"><h6 class="fw-bold mb-1 text-dark">{{ preprint.title }}</h6></a>
+                <div>{{ preprint.abstract }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="text-muted">There are no preprints.</p>
+    {% endif %}
+
+    <!-- Formal paperセクション -->
+    {% if preprints %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Formal paper list</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for formal_paper in formal_papers %}
+            <li class="list-group-item">
+                <a href="{% url 'dogmatics:j_reading' %}?id={{ formal_paper.id }}"><h6 class="fw-bold mb-1 text-dark">{{ formal_paper.preprint.title }}</h6></a>
+                <div>{{ formal_paper.preprint.abstract }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="text-muted">There are no formal papers.</p>
+    {% endif %}
+</div>
 {% endblock %}
