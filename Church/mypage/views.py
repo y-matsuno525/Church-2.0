@@ -7,14 +7,24 @@ from django.shortcuts import get_object_or_404, redirect
 # Create your views here.
 def mypage(request):
 
-    #user_nameをユニークにする
+    #ログインユーザー取得
     user = request.user
+
+    #プレプリント取得
     preprints = Preprint.objects.filter(author=user)
+
+    #journalの論文取得
     formal_papers = []
     for preprint in preprints:
         if FormalPaper.objects.filter(preprint=preprint):
-            formal_papers.append(FormalPaper.objects.filter(preprint=preprint))
-    posts = Post.objects.filter(owner=user)
+            formal_papers.extend(FormalPaper.objects.filter(preprint=preprint))
+
+    #forumへの投稿を取得
+    posts = Post.objects.filter(owner=user).order_by('-created_at')[:10]
+
+    
+    for f in formal_papers:
+        print(f.preprint.title)
 
 
     params = {

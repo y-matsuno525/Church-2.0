@@ -23,6 +23,8 @@ bible_order = [
 books = Book.objects.filter(name__in=bible_order)
 ordered_books = sorted(books, key=lambda x: bible_order.index(x.name.lower()))
 
+
+
 def list(request):
     
     params = {
@@ -30,6 +32,8 @@ def list(request):
     }
 
     return render(request,'forum/list.html',params)
+
+
 
 def book(request,num=1):
 
@@ -64,24 +68,37 @@ def book(request,num=1):
 
     return render(request,"forum/book.html",params)
 
-def forum(request):
 
+
+def forum(request,num=1):
+
+    #クエリパラメータを取得
     name = request.GET["name"]
     chapter_number = request.GET["chapter"]
     verse_number = request.GET["verse"]
 
+    #ページ遷移
+    motion = request.GET.get("motion", None)
+    if motion:
+        num = int(request.GET["page"]) 
+        if num is None:
+            num = 1
+
+    #クエリパラメータに適したポストを取得
     book = Book.objects.filter(name=name).first()
     chapter = Chapter.objects.filter(book=book, chapter_number=chapter_number).first()
     verse=Verse.objects.filter(verse_number=verse_number, chapter=chapter).first()
-
-
     post = Post.objects.filter(verse__chapter__book__name = name, verse__chapter__chapter_number=chapter_number, verse__verse_number=verse_number).order_by("-created_at")
 
+    #ページネーション定義
+    page=Paginator(post,30)
+
+    #django.ratelimitで使う変数の初期化
     can_post = 1
 
+    #ログインユーザーかゲストユーザーか
     if request.user.is_authenticated:
         form = DiscussionForm()
-            
     else:
         form = DiscussionForm_guest()
             
@@ -91,19 +108,24 @@ def forum(request):
         "chapter":chapter,
         "verse":verse,
         "form":form,
-        "post":post,
+        "post":page.get_page(num),
         "can_post" : can_post
 
     }
 
+    #掲示板投稿時処理（django.ratelimit未完成）
     if (request.method == 'POST'):
+
+        #投稿後は先頭ページへ移動    
+        
 
         was_limited = False#ratelimit(key='ip', rate='5/m', method='POST', block=False)(lambda x: True)(request)
 
         if not was_limited:
 
             params["can_post"] = 1
-
+            
+            #ログインユーザー
             if request.user.is_authenticated:
 
                 user = request.user
@@ -115,10 +137,11 @@ def forum(request):
 
                 post = Post(owner=user,text=post_text,verse=post_verse)     
                 post.save() 
-                params["post"] = Post.objects.filter(verse__chapter__book__name = name, verse__chapter__chapter_number=chapter_number, verse__verse_number=verse_number).order_by("-created_at")
+                posts = Post.objects.filter(verse__chapter__book__name = name, verse__chapter__chapter_number=chapter_number, verse__verse_number=verse_number).order_by("-created_at")
+                page = Paginator(posts,30)
+                params["post"] = page.get_page(1)
 
-
-
+            #ゲストユーザー
             else:
                 guest_name = request.POST["guest_name"]
                 post_text = request.POST["text"]
@@ -129,7 +152,9 @@ def forum(request):
 
                 post = Post(guest_name=guest_name,text=post_text,verse=post_verse)     
                 post.save() 
-                params["post"] = Post.objects.filter(verse__chapter__book__name = name, verse__chapter__chapter_number=chapter_number, verse__verse_number=verse_number).order_by("-created_at")
+                posts = Post.objects.filter(verse__chapter__book__name = name, verse__chapter__chapter_number=chapter_number, verse__verse_number=verse_number).order_by("-created_at")
+                page=Paginator(posts,30)
+                params["post"] = page.get_page(1)
 
         else:
             params["can_post"] = 0

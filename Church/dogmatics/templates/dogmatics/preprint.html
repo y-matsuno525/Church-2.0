@@ -11,7 +11,7 @@
                     {{ preprint.title }}
                 </a>
             </h5>
-            <p class="text-muted mb-1">Author: {{ preprint.author.username }}</p>
+            <a href="{% url 'userpage:userpage' preprint.author.username %}" class="text-muted mb-1">Author: {{ preprint.author.username }}</a>
             <p>{{ preprint.abstract }}</p>
         </div>
         {% empty %}
