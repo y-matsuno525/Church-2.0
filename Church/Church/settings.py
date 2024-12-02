@@ -90,9 +90,28 @@ WSGI_APPLICATION = "Church.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': env.db(),
-}
+#SQLite以外を使うなら.envの'SQLITE'をFalseにする
+if env.bool('SQLITE') == True:
+
+    DATABASES = {
+        'default' : {
+            'ENGINE' : 'django.db.backends.sqlite3',
+            'NAME' : os.path.join(BASE_DIR, 'db.sqlite3')
+        }
+    }
+
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': env('DATABASE_ENGINE'),
+            'NAME': env('DATABASE_NAME'),
+            'USER': env('DATABASE_USER'),
+            'PASSWORD': env('DATABASE_PASSWORD'),
+            'HOST': env('DATABASE_HOST'),
+            'PORT': env('DATABASE_PORT'),
+        }
+    }
 
 
 # Password validation
