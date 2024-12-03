@@ -165,3 +165,4 @@ cython_debug/
 memo.txt
 others/
 test_user.txt
+uploads/
