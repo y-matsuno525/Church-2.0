@@ -25,7 +25,7 @@ ordered_books = sorted(books, key=lambda x: bible_order.index(x.name.lower()))
 
 
 
-def list(request):
+def book(request):
     
     params = {
         "books":ordered_books,
@@ -35,7 +35,7 @@ def list(request):
 
 
 #諸書（創世記、マタイによる福音書、etc）の選択
-def book(request,num=1):
+def book_list(request,num=1):
 
     book_name = request.GET.get("name")
 
