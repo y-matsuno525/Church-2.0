@@ -33,7 +33,7 @@ def preprint(request):
 
     return render(request,"dogmatics/preprint.html",params)
 
-@login_required(login_url="/accounts/login/")
+@login_required(login_url="/accounts/login/", redirect_field_name=None)
 def post(request):
 
     user = request.user

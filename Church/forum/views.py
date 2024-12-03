@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
 
+
+
+#Bookインスタンスを聖書の掲載順に並び替える
+
+#聖書の掲載順に並んだリスト
 bible_order = [
         "genesis", "exodus", "leviticus", "numbers", "deuteronomy", "joshua",
         "judges", "ruth", "1samuel", "2samuel", "1kings", "2kings", "1chronicles", 
@@ -25,17 +30,21 @@ ordered_books = sorted(books, key=lambda x: bible_order.index(x.name.lower()))
 
 
 
-def book(request):
+#諸書（創世記、マタイによる福音書、etc）の選択
+def book_list(request):
     
     params = {
+
         "books":ordered_books,
+
     }
 
-    return render(request,'forum/list.html',params)
+    return render(request,'forum/book_list.html',params)
 
 
-#諸書（創世記、マタイによる福音書、etc）の選択
-def book_list(request,num=1):
+
+#諸書の本文を表示
+def book(request,num=1):
 
     book_name = request.GET.get("name")
 
@@ -72,6 +81,7 @@ def book_list(request,num=1):
 
 
 
+#各聖句に付属する掲示板
 def forum(request,num=1):
 
     #クエリパラメータを取得

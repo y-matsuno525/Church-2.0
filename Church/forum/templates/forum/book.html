@@ -2,27 +2,41 @@
 
 {% block main %}
     <body>
-        <h1>{{book}}</h1>
-        {% for verse_set, id in verses %}
-        <p>Chapter:{{id}}</p>
-        {% for verse in verse_set %}
-        <a href="{% url 'forum' %}?name={{book}}&chapter={{id}}&verse={{verse.verse_number}}" class="text-dark">
-            <p>{{verse.verse_number}}: {{verse.text}}</p>
-        </a>
-        {% endfor %}
-        {% endfor %}
+        <h1 class="text-center my-4">{{ book }}</h1>
+
+        <div class="container">
+            <!-- Loop through chapters -->
+            {% for verse_set, id in verses %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-white text-dark border-bottom">
+                    <h5 class="mb-0">Chapter: {{ id }}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <!-- Loop through verses -->
+                    {% for verse in verse_set %}
+                    <li class="list-group-item">
+                        <a href="{% url 'bible_forum:forum' %}?name={{ book }}&chapter={{ id }}&verse={{ verse.verse_number }}" class="text-decoration-none text-dark">
+                            <strong>{{ verse.verse_number }}:</strong> {{ verse.text }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
 
         <!--以下ページネーション-->
 
         <ul class="pagination">
             {% if verses.has_previous %}
             <li class="page-item">
-                <a class="page-link text-dark" href="{% url 'book' %}?name={{book}}">
+                <a class="page-link text-dark" href="{% url 'bible_forum:book' %}?name={{book}}">
                     &laquo; first
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-dark" href="{% url 'book' %}?name={{book}}&page={{verses.previous_page_number}}">
+                <a class="page-link text-dark" href="{% url 'bible_forum:book' %}?name={{book}}&page={{verses.previous_page_number}}">
                     &laquo; prev
                 </a>
             </li>
@@ -43,12 +57,12 @@
 
             {% if verses.has_next %}
             <li class="page-item">
-                <a class="page-link text-dark" href="{% url 'book' %}?name={{book}}&page={{verses.next_page_number}}">
+                <a class="page-link text-dark" href="{% url 'bible_forum:book' %}?name={{book}}&page={{verses.next_page_number}}">
                     next &raquo;
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-dark" href="{% url 'book' %}?name={{book}}&page={{verses.paginator.num_pages}}">
+                <a class="page-link text-dark" href="{% url 'bible_forum:book' %}?name={{book}}&page={{verses.paginator.num_pages}}">
                     last &raquo;
                 </a>
             </li>

@@ -1,9 +1,43 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <body>
-        <a class="page-link text-dark" href="{% url 'dogmatics:journal' %}"><p>・Journal</p></a>
-        <a class="page-link text-dark" href="{% url 'dogmatics:preprint' %}"><p>・Preprint</p></a>
-        <a class="page-link text-dark" href="{% url 'dogmatics:post' %}"><p>・Post</p></a>
-    </body>
+<body>
+    <div class="container my-5">
+        <!-- Header Section -->
+        <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold">Dogmatics Resources</h1>
+        </div>
+
+        <!-- Links Section -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Journal</h5>
+                        <p class="card-text">Access academic journals related to dogmatics.</p>
+                        <a href="{% url 'dogmatics:journal' %}" class="btn btn-primary w-100">Go to Journal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Preprint</h5>
+                        <p class="card-text">Explore preprints and drafts of dogmatic research.</p>
+                        <a href="{% url 'dogmatics:preprint' %}" class="btn btn-success w-100">Go to Preprint</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Post</h5>
+                        <p class="card-text">Share and discuss posts related to dogmatics.</p>
+                        <a href="{% url 'dogmatics:post' %}" class="btn btn-warning w-100">Go to Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock %}

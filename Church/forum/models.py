@@ -23,13 +23,6 @@ class Verse(models.Model):
     def __str__(self):
         return f"{self.chapter.book.name} {self.chapter.chapter_number}:{self.verse_number}"
     
-class Post_test(models.Model): #このモデルは後で消す
-    name = models.CharField(max_length=100)
-    text = models.TextField()
-    
-    def __str__(self):
-        return self.text
-    
 class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="message_owner", null=True)
     guest_name = models.CharField(max_length=100, null=True)

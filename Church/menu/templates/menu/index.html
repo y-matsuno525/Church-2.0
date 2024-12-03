@@ -1,20 +1,68 @@
+
 {% extends "base.html" %}
 
 {% block main %}
 <body>
-    <div class="container">
-        <h2>menu</h2>
-        <p><a class="page-link text-dark" href="{% url 'list' %}">・General forum</a></p>
-        <p><a class="page-link text-dark" href="{% url 'dogmatics:select' %}">・Dogmatics forum</a></p>
-        <p><a class="page-link text-dark" href="{% url 'store:product_list' %}">・Store (Under Construction)</a></p>
-        <br><h2>Keyword Visualization (entire bulletin board)</h2>
-        <p><br><img src="/media/wordcloud/all.png" class="img-fluid"></p>
-        <br><h2>summary</h2>
-        <p>・Under Construction</p>
-        <br>If you encounter any bugs, security issues, or have any feature requests, please feel free to contact us at the email address below. 
-        <br>As I am new to web app development, I also welcome any advice or suggestions.
+    <div class="container my-5">
+        <!-- Header Section -->
+        <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold">Menu</h1>
+        </div>
 
-        <br>church2.ja@gmail.com
+        <!-- Menu Section -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Bible Forum</h5>
+                        <p class="card-text">Discuss the Bible in the this forum.</p>
+                        <a href="{% url 'bible_forum:book_list' %}" class="btn btn-primary w-100">Go to Forum</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Dogmatics Forum</h5>
+                        <p class="card-text">Discuss dogmatics in the this forum.</p>
+                        <a href="{% url 'dogmatics:select' %}" class="btn btn-success w-100">Go to Forum</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Store</h5>
+                        <p class="card-text">Check out our store (under construction).</p>
+                        <a href="{% url 'store:product_list' %}" class="btn btn-warning w-100">Visit Store</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyword Visualization Section -->
+        <div class="mt-5">
+            <h2 class="text-center">Keyword Visualization</h2>
+            <p class="text-center text-muted">(Entire Bulletin Board)</p>
+            <div class="d-flex justify-content-center">
+                <img src="/media/wordcloud/all.png" class="img-fluid rounded shadow-sm" alt="No images">
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="mt-5">
+            <h2 class="text-center">Summary</h2>
+            <p class="text-center text-muted">Under Construction</p>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="mt-5 pt-3 border-top">
+            <div class="text-center">
+                <p>If you encounter any bugs, security issues, or have any feature requests, please feel free to contact us.</p>
+                <p>As I am new to web app development, I also welcome any advice or suggestions.</p>
+                <p><strong>Email:</strong> <a href="mailto:church2.ja@gmail.com">church2.ja@gmail.com</a></p>
+            </div>
+        </footer>
     </div>
 </body>
 {% endblock %}

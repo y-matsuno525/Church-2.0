@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='index'),
-    path('list/',include('forum.urls')),
+    path('book_list/',include('forum.urls')),
     path('dogmatics/',include('dogmatics.urls')),
 ]

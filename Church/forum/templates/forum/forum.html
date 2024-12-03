@@ -7,7 +7,7 @@
         <h3>{{verse.text}}</h3>
         {% if can_post == 1 %}
         {% csrf_token %}
-        <form action="{% url 'forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}" method="post">
+        <form action="{% url 'bible_forum:forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}" method="post">
             {% csrf_token %}
             {{form}}
             <input type="submit" value="post" class="btn btn-primary btn-dark">
@@ -60,12 +60,12 @@
         <ul class="pagination">
             {% if post.has_previous %}
             <li class="page-item">
-                <a class="page-link text-dark" href="{% url 'forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}">
+                <a class="page-link text-dark" href="{% url 'bible_forum:forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}">
                     &laquo; first</a>
             </li>
             <li class="page-item">
                 <a class="page-link text-dark" 
-                href="{% url 'forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.previous_page_number}}">
+                href="{% url 'bible_forum:forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.previous_page_number}}">
                     &laquo; prev</a>
             </li>
             {% else %}
@@ -85,12 +85,12 @@
             {% if post.has_next %}
             <li class="page-item">
                 <a class="page-link text-dark" 
-                href="{% url 'forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.next_page_number }}">
+                href="{% url 'bible_forum:forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.next_page_number }}">
                     next &raquo;</a>
             </li>
             <li class="page-item">
                 <a class="page-link text-dark" 
-                href="{% url 'forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.paginator.num_pages}}">
+                href="{% url 'bible_forum:forum' %}?name={{name}}&chapter={{chapter.chapter_number}}&verse={{verse.verse_number}}&motion=1&page={{post.paginator.num_pages}}">
                     last &raquo;</a>
             </li>
             {% else %}
