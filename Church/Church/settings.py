@@ -33,7 +33,7 @@ DEBUG = env('DEBUG')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#test環境では[]、AWSではパブリックIPを指定（切り替えを自動化できたらいいが、、）
+#test環境では[]、AWSでは env.list('ALLOWED_HOSTS') としてパブリックIPを指定（切り替えを自動化できたらいいが、、）
 ALLOWED_HOSTS = []
 
 
