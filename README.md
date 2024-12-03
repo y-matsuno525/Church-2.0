@@ -1,5 +1,5 @@
 # Church2.0
-http://13.231.112.58:8000/menu/
+http://13.231.112.58:8000/menu/（現在無効）
 ## 概要
 **Church2.0** は、東浩紀の著書『一般意思2.0』や柄谷行人の著書『力と交換様式』に影響を受けた新しい形のオンラインキリスト教コミュニティを目指しています。  
 カトリックやプロテスタントなど、既存の教会には属さない独立したプラットフォームで、教会に属さないクリスチャン同士をつなぐことを目的としています。
@@ -29,15 +29,14 @@ http://13.231.112.58:8000/menu/
 - **データベース**:
   - 開発環境: SQLite
   - 本番環境: PostgreSQL（予定）
-- **デプロイ**: AWS
+- **デプロイ**: AWS　
 
 ---
 
 ## セットアップ手順
 
 ### 必要要件
-- Python 3.13.0
-- pipenv（仮想環境管理）
+- Python 3.10以上
 - Git
 
 ### インストール手順
@@ -85,8 +84,7 @@ This platform is independent of existing churches, such as Catholic and Protesta
 ## Setup Instructions
 
 ### Requirements
-- Python 3.13.0
-- pipenv (virtual environment manager)
+- Python >= 3.10
 - Git
 
 ### Installation Steps
