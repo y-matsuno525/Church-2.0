@@ -34,13 +34,14 @@ def list(request):
     return render(request,'forum/list.html',params)
 
 
-
+#諸書（創世記、マタイによる福音書、etc）の選択
 def book(request,num=1):
 
     book_name = request.GET.get("name")
 
     num = request.GET.get("page")
 
+    #クエリパラメータ"page"がないページは1ページ目だということ
     if num is None:
         page = 1
     
@@ -51,6 +52,7 @@ def book(request,num=1):
         verse_set = chapter.verse_set.all().order_by("verse_number")
         verses.append((verse_set,id+1))
 
+    #ページネーションの定義
     page = Paginator(verses,1)
 
     params = {
