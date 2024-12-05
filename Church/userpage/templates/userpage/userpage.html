@@ -19,7 +19,7 @@
             {% for post in posts %}
             <li class="list-group-item">
                 <p class="mb-1 text-muted">
-                    {{ post.verse.chapter.book.name }} {{ post.verse.chapter.chapter_number }}:{{ post.verse.verse_number }}
+                    {{ post.verse.chapter.book.name }} {{ post.verse.chapter.chapter_number }}:{{ post.verse.verse_number }}, {{post.verse.text}}
                 </p>
                 <p class="mb-0">{{ post.text }}</p>
             </li>

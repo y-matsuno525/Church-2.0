@@ -165,4 +165,7 @@ cython_debug/
 memo.txt
 others/
 test_user.txt
-uploads/
+
+#生成画像は無視する
+Church/uploads/wordcloud/*.png
+Church/uploads/img/wordcloud/*.png
