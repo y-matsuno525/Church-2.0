@@ -1,6 +1,6 @@
 # Church2.0
 http://13.231.112.58:8000/menu/
-（サーバーの知識が浅いので、いつの間にかリンクが切れているかもしれません）
+（現在停止中。サーバーの知識が浅いので、いつの間にかリンクが切れているかもしれません）
 
 デモ動画
 https://youtube.com/shorts/mg3xL1Yj4mI?si=ANueHc0VGFUHuONH
