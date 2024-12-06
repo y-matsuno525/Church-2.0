@@ -3,7 +3,7 @@ http://13.231.112.58:8000/menu/
 （現在停止中。サーバーの知識が浅いので、いつの間にかリンクが切れているかもしれません）
 
 デモ動画
-https://youtube.com/shorts/mg3xL1Yj4mI?si=ANueHc0VGFUHuONH
+https://youtu.be/ggfkW9GFSes?si=enlyv8lhV14jd4YQ
   
 ## 概要
 - **Church2.0** は、東浩紀の著書『一般意思2.0』や柄谷行人の著書『力と交換様式』に影響を受けた新しい形のオンラインキリスト教コミュニティを目指しています。  
