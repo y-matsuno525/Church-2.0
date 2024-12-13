@@ -10,6 +10,7 @@ urlpatterns = [
     path("store/",include("store.urls")),
     path("userpage/",include("userpage.urls")),
     path("mypage/",include("mypage.urls")),
+    path("church_map/",include("church_map.urls")),
 ]
 
 if settings.DEBUG:  

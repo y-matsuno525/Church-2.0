@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "mdeditor",
     "userpage",
     "mypage",
+    "church_map",
 ]
 
 MIDDLEWARE = [
