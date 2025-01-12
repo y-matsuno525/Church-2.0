@@ -1,4 +1,4 @@
-# Church2.0(https://github.com/y-matsuno525/Church-3.0で作り直しています)
+# Church2.0(作り直しています→https://github.com/y-matsuno525/Church-3.0)
 http://13.231.112.58:8000/menu/
 （AWS無料枠ギリギリのため現在停止中）
 
@@ -7,8 +7,6 @@ https://youtu.be/ggfkW9GFSes?si=enlyv8lhV14jd4YQ
   
 ## 概要
 - **Church2.0** は、カトリックやプロテスタントなど、既存の教会には属さない独立したプラットフォームで、教会に属さないクリスチャン同士をつなぐことを目的としています。
-- 秘密基地を作る感覚で楽しみながら開発しています。
-- 考えうる改善点のうちいくつかはIssuesに書いてあります。
 ---
 
 ## 機能一覧
