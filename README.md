@@ -1,4 +1,4 @@
-# Church2.0
+# Church2.0(https://github.com/y-matsuno525/Church-3.0で作り直しています)
 http://13.231.112.58:8000/menu/
 （AWS無料枠ギリギリのため現在停止中）
 
